@@ -9,5 +9,7 @@ it('JSON içe aktarma sürümü, tüm alanları ve geçersiz içeriği doğrular
   expect(() => importConfig(JSON.stringify({ ...DEFAULT, learningRate: '0.02' }))).toThrow();
 });
 it('CSV gerçek epoch metriklerini saklar; olmayan test ölçümünü boş bırakır', () => {
-  expect(historyCSV([{ epoch: 0, trainLoss: 0.71, testLoss: null, trainAccuracy: 0.5, testAccuracy: null }])).toBe('epoch,train_bce,test_bce,train_accuracy,test_accuracy\r\n0,0.71,,0.5,');
+  expect(
+    historyCSV([{ epoch: 0, trainLoss: 0.71, testLoss: null, trainAccuracy: 0.5, testAccuracy: null }]),
+  ).toBe('epoch,train_bce,test_bce,train_accuracy,test_accuracy\r\n0,0.71,,0.5,');
 });

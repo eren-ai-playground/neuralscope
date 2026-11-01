@@ -31,14 +31,14 @@ npm run dev
 
 Uygulama **http://127.0.0.1:5173** adresinde açılır; port doluysa Vite sonrakini seçer. `index.html` dosyasını doğrudan açmak modül ve Worker kısıtları nedeniyle çalışmaz.
 
-| Komut             | Ne yapar                                                 |
-| ----------------- | -------------------------------------------------------- |
-| `npm run dev`     | Geliştirme sunucusunu başlatır                           |
-| `npm test`        | Matematik, eğitim ve dosya testlerini çalıştırır         |
-| `npm run build`   | TypeScript kontrolü yapar ve `dist` klasörünü üretir     |
-| `npm run preview` | Derlenmiş `dist` klasörünü yerel sunucuda açar           |
-| `npm run lint`    | ESLint ile kodu denetler                                 |
-| `npm run format`  | Prettier ile kodu biçimlendirir                          |
+| Komut             | Ne yapar                                             |
+| ----------------- | ---------------------------------------------------- |
+| `npm run dev`     | Geliştirme sunucusunu başlatır                       |
+| `npm test`        | Matematik, eğitim ve dosya testlerini çalıştırır     |
+| `npm run build`   | TypeScript kontrolü yapar ve `dist` klasörünü üretir |
+| `npm run preview` | Derlenmiş `dist` klasörünü yerel sunucuda açar       |
+| `npm run lint`    | ESLint ile kodu denetler                             |
+| `npm run format`  | Prettier ile kodu biçimlendirir                      |
 
 ## İlk deney
 
