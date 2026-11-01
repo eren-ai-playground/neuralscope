@@ -1,0 +1,10 @@
+node_modules/
+node_modules.pnpm-backup/
+dist/
+qa/
+*.log
+*.tsbuildinfo
+
+# Local tooling and notes
+.claude/
+VERIFICATION.md

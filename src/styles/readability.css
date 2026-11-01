@@ -1,0 +1,68 @@
+/* Keep technical captions legible at desktop and mobile sizes. */
+.field>span,.range-field>span,.check-field,.control-section h3{font-size:11px}
+.quiet-note,.settings-note,.plot-help{font-size:11px}
+.learning-grid p{font-size:12px;line-height:1.75}
+.learning-grid h3{font-size:14px}
+.inspector-section .quiet-note{font-size:11px}
+.values>div{font-size:11px}
+.weight-table table,.weight-table button{font-size:11px}
+.selected-neuron strong{font-size:12px}
+.selected-neuron div>span{font-size:10px}
+.bottom-tools p{font-size:11px}
+@media(max-width:650px){
+  .control-section:nth-child(4)>.rate-range{display:block;grid-column:span 2;margin:2px 0}
+  .control-section:nth-child(4)>.range-ends{display:flex;grid-column:span 2}
+  .learning-grid{grid-template-columns:1fr}
+  .values>div,.weight-table table,.weight-table button{font-size:12px}
+}
+/* A new experiment is initializing; the previous run stays visible but dimmed. */
+.metric-strip.pending,.workspace.pending .workspace-center,.workspace.pending .inspector-panel{opacity:.55;transition:opacity .15s}
+/* "?" help: the tip anchors to the whole control section (or speed control) so it stays readable inside narrow two-column fields. */
+.controls.panel{overflow:visible}
+.control-section,.speed-control{position:relative}
+.help{display:inline}
+.help-button{display:inline-grid;place-items:center;width:15px;height:15px;padding:0;margin-left:5px;vertical-align:-2px;border:1px solid #3d4a50;border-radius:50%;background:#1d272c;color:#a8b6bd;font:600 9px/1 Inter,'Segoe UI',Arial,sans-serif;cursor:help}
+.help-button:hover,.help-button:focus-visible{border-color:var(--accent);color:var(--accent)}
+.help-tip{display:none;position:absolute;left:12px;right:12px;z-index:30;margin-top:21px;padding:10px 12px;border:1px solid #3d4a50;border-radius:7px;background:#0d1316;box-shadow:0 8px 24px #0009;color:#d4dfdd;font:400 12px/1.55 Inter,'Segoe UI',Arial,sans-serif;letter-spacing:0;text-transform:none;text-align:left;white-space:normal}
+.help:hover .help-tip,.help:focus-within .help-tip{display:block}
+.speed-control .help-tip{left:0;right:auto;width:260px;max-width:calc(100vw - 32px)}
+/* Help tips inside panels anchor to their heading, section or metric. */
+.card-heading,.inspector-section,.metric-strip>div,.bottom-tools>div:first-child{position:relative}
+.decision-panel,.network-panel,.charts-panel,.inspector-panel{overflow:visible}
+.card-heading h2 .help-button{vertical-align:2px}
+.metric-strip .help-tip{left:8px;right:auto;width:240px;max-width:calc(100vw - 32px)}
+.metric-strip>div:last-child .help-tip{left:auto;right:8px}
+.bottom-tools .help-tip{left:0;right:auto;width:300px;max-width:calc(100vw - 32px)}
+/* Input feature toggles. */
+.feature-field{margin-bottom:11px}
+.feature-field>span{display:block;color:#a8b6bd;font-size:11px;margin-bottom:6px}
+.feature-chips{display:flex;flex-wrap:wrap;gap:5px}
+.feature-chips button{padding:4px 7px;font:11px Consolas,monospace}
+.feature-chips button.active{background:#34482f;color:var(--accent);border-color:#6e825b}
+/* Neuron maps. */
+.map-toggle{display:inline-flex;align-items:center;gap:5px;margin-left:auto;cursor:pointer;color:#b2bec3}
+.neuron-map img{display:block;width:100%;max-width:200px;aspect-ratio:1;margin:0 auto 8px;border:1px solid #3d4a50;border-radius:4px;image-rendering:auto}
+/* Drawing tools for the custom dataset. */
+.draw-tools{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:10px 19px 0;font-size:11px;color:#a8b6bd}
+.draw-tools>span{margin-right:2px}
+.draw-tools button{padding:4px 9px;font-size:11px}
+.draw-tools button.active{background:#34482f;color:var(--accent);border-color:#6e825b}
+.draw-tools .tool-zero{color:#76d5e2}.draw-tools .tool-one{color:#edb36b}
+.draw-tools small{margin-left:auto;color:#8d9fa8;font:10px Consolas,monospace}
+/* Timeline. */
+.timeline{padding:14px 19px;overflow:visible}
+.timeline-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:9px;position:relative}
+.timeline-head .help-tip{left:0;right:auto;width:300px;max-width:calc(100vw - 32px)}
+.timeline-head strong{font:12px Consolas,monospace;color:var(--accent)}
+.timeline-row{display:flex;align-items:center;gap:10px}
+.timeline-row input{flex:1;min-width:0}
+.timeline-row button{padding:5px 11px;font-size:11px;white-space:nowrap}
+.timeline .quiet-note{margin-top:7px}
+.chart-marker{pointer-events:none}
+/* Comparison with the previous run. */
+.chart-legend span.legend-test{color:var(--orange)}
+.chart-legend span.legend-previous{color:#8b9aa1}
+.compare-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 19px 4px;padding:7px 10px;border:1px solid #2f3a3f;border-radius:6px;background:#141b1f;font-size:11px;color:#a9b8be;position:relative}
+.compare-bar b{color:#c9d4d6;font-weight:600}
+.compare-bar button{padding:3px 9px;font-size:10px;flex-shrink:0}
+.compare-bar .help-tip{left:0;right:0}
