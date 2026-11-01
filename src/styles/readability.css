@@ -327,3 +327,133 @@
   background: #1d272c;
   font-size: 9px;
 }
+
+/* Guided lessons. */
+.lessons {
+  margin-bottom: 18px;
+  padding: 14px 18px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #131b20;
+}
+.lessons-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 14px;
+  margin-bottom: 11px;
+}
+.lessons-head p {
+  font-size: 12px;
+  color: var(--muted);
+}
+.lesson-cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 9px;
+}
+.lesson-card {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 11px 12px;
+  text-align: left;
+  line-height: 1.45;
+}
+.lesson-card strong {
+  font-size: 13px;
+  font-weight: 600;
+}
+.lesson-card span {
+  font-size: 11px;
+  color: #a9b8be;
+}
+.lesson-card small {
+  margin-top: auto;
+  padding-top: 3px;
+  font:
+    10px Consolas,
+    monospace;
+  color: #82979f;
+}
+.lesson-card .lesson-check {
+  font-size: inherit;
+  color: var(--accent);
+}
+.lesson-active {
+  border-color: #4d6145;
+}
+.lesson-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 7px;
+}
+.lesson-top h2 {
+  margin-top: 4px;
+  font-size: 18px;
+  font-weight: 550;
+}
+.lesson-active .text-button {
+  font-size: 11px;
+  white-space: nowrap;
+}
+.lesson-active p {
+  font-size: 13px;
+  line-height: 1.55;
+}
+.lesson-active .lesson-look {
+  margin-top: 3px;
+  font-size: 12px;
+  color: #a9b8be;
+}
+.lesson-result p {
+  margin-top: 9px;
+  padding: 9px 12px;
+  border-left: 3px solid var(--accent);
+  border-radius: 0 6px 6px 0;
+  background: #1a241c;
+}
+.lesson-result .lesson-warning {
+  border-left-color: var(--orange);
+  background: #2a221a;
+}
+.lesson-result .lesson-conclusion {
+  border-left-color: var(--cyan);
+  background: #182429;
+}
+.lesson-result .lesson-wait {
+  border-left-color: #4a585e;
+  background: transparent;
+  font:
+    12px Consolas,
+    monospace;
+  color: #a9b8be;
+}
+.lesson-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 11px;
+}
+/* While a lesson runs, its instructions stay in view next to the panels being described. */
+@media (min-width: 961px) and (min-height: 860px) {
+  .lesson-active {
+    position: sticky;
+    top: 8px;
+    z-index: 25;
+    box-shadow: 0 10px 28px #0009;
+  }
+}
+@media (max-width: 960px) {
+  .lesson-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 480px) {
+  .lesson-cards {
+    grid-template-columns: 1fr;
+  }
+}

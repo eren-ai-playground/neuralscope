@@ -8,6 +8,7 @@ Sinir ağlarının gerçekten nasıl öğrendiğini gösteren Türkçe, etkileş
 
 ## Özellikler
 
+- **Rehberli dersler:** öğrenme hızı, ağın kapasitesi, girdi özellikleri ve aşırı öğrenme. Ayarları ders kurar, eğitimi sen başlatırsın; yorum o eğitimin gerçek ölçümlerinden yazılır.
 - **Canlı eğitim:** başlat, duraklat, tek batch ilerlet, sıfırla. Beş veri kümesi ve dört hazır deney.
 - **Nöron haritaları:** her nöronun girdi düzleminde neye tepki verdiğini görürsün. İlk katmanların düz geçişleri, sonraki katmanlarda eğri şekillere dönüşür.
 - **Nöron inceleyici:** seçili nöronun ileri geçişini, türevlerini ve son batch güncellemesini gerçek sayılarla takip et.
@@ -42,6 +43,8 @@ Uygulama **http://127.0.0.1:5173** adresinde açılır; port doluysa Vite sonrak
 
 ## İlk deney
 
+En kolay başlangıç **Rehberli dersler** bölümüdür. Kendin keşfetmek istersen:
+
 1. Açılışta XOR hazırdır. **▶ Başlat**'a bas; arka plan rengi ağın her noktadaki "sınıf 1" olasılığını, kesikli çizgi karar sınırını gösterir.
 2. Eğitim bitince kaydırıcıyla başa sar ve sınırın nasıl oluştuğunu izle.
 3. Soldan öğrenme hızını değiştirip yeniden eğit; eski eğri gri çizgi olarak kalır.
@@ -50,7 +53,7 @@ Uygulama **http://127.0.0.1:5173** adresinde açılır; port doluysa Vite sonrak
 ## Matematik
 
 - **Model:** seçilen 1–7 girdi özelliği, 0–3 gizli katman, katman başına 2–16 nöron, tek sigmoid çıkış. Gizli aktivasyon tanh, ReLU veya sigmoid.
-- **Başlangıç:** ReLU katmanlarında He normal, diğerlerinde Xavier normal; bias sıfır. Veri, ağırlık ve karıştırma bağımsız seed'li rastgele akışlar kullanır, sonuçlar tekrarlanabilir.
+- **Başlangıç:** ReLU katmanlarında He normal, diğerlerinde Xavier normal; bias sıfır. Veri, ağırlık ve karıştırma bağımsız seed'li rastgele akışlar kullanır. Aynı tarayıcıda aynı seed aynı sonucu verir ve gözlem hızı sonucu değiştirmez. Farklı JavaScript motorlarında matematik fonksiyonları son basamakta ayrışabildiğinden, uzun eğitimlerin sonuçları farklı tarayıcılarda biraz değişebilir.
 - **Kayıp:** BCE doğrudan logit'ten hesaplanır: `max(z,0) - y*z + log1p(exp(-abs(z)))`. Bu, `log(0)` ve taşma sorununu önler.
 - **Geri yayılım:** çıkışta `dL/dz = sigmoid(z) - y`; gizli katmanlarda zincir kuralı. Gradyan gerçek batch uzunluğuna göre ortalanır. L2 yalnızca ağırlıklara uygulanır, grafiklerdeki BCE cezasızdır.
 - **Optimizer:** SGD ve Adam (beta1=0.9, beta2=0.999, bias düzeltmeli).
@@ -62,10 +65,10 @@ Gradyanlar testlerde merkezi farkla (`h=1e-5`, hata `<2e-6`) tüm ağırlık ve 
 
 ```text
 src/
-  ml/          Model, optimizer, veri, girdi özellikleri, eğitim döngüsü (arayüzden bağımsız)
+  ml/          Model, optimizer, veri, girdi özellikleri, eğitim döngüsü, dersler (arayüzden bağımsız)
   workers/     Eğitimi ana thread dışında çalıştıran Web Worker
   hooks/       Worker ile arayüz arasındaki köprü
-  components/  Kontroller, karar sınırı, ağ, grafikler, inceleyici, zaman çizelgesi
+  components/  Dersler, kontroller, karar sınırı, ağ, grafikler, inceleyici, zaman çizelgesi
   utils/       JSON ve CSV dosyaları
 tests/         Vitest testleri
 ```
@@ -74,4 +77,4 @@ Model ağırlıkları Worker'da yaşar, arayüz yalnızca kopyalarını okur. Is
 
 ## Sınırlar
 
-Bu, 2 boyutlu ikili sınıflandırma için bir eğitim aracıdır; her seed, gürültü veya mimari için öğrenme garantisi yoktur. Nokta sayısı 2.000, epoch sayısı 5.000 ile sınırlıdır. Geri sarma için en fazla yaklaşık 300 epoch'un ağırlıkları saklanır. Model dosyası optimizer belleğini içermez. NaN veya aşırı büyük değerler görünür bir hata üretir, gradyan gizlice kırpılmaz. Arayüz testleri otomatik değildir; testler matematik, eğitim ve dosya katmanını kapsar.
+Bu, 2 boyutlu ikili sınıflandırma için bir eğitim aracıdır; her seed, gürültü veya mimari için öğrenme garantisi yoktur. Nokta sayısı 2.000, epoch sayısı 5.000 ile sınırlıdır. Geri sarma için en fazla yaklaşık 300 epoch'un ağırlıkları saklanır. Model dosyası optimizer belleğini içermez. NaN veya aşırı büyük değerler görünür bir hata üretir, gradyan gizlice kırpılmaz. Otomatik testler matematik, eğitim, dosya ve ders katmanını kapsar; her dersin anlattığı sonuç gerçek eğitimle sınanır. Arayüz için otomatik test yoktur.

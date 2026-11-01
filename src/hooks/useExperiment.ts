@@ -8,7 +8,7 @@ export interface PreviousRun {
 }
 export function useExperiment(config: Config, reset: number, weights: Layer[] | null) {
   // The previous run's snapshot stays visible (marked pending) until the new worker answers, so panels do not flash to a loading state.
-  const [latest, setLatest] = useState<{ id: number; snapshot: Snapshot } | null>(null);
+  const [latest, setLatest] = useState<{ id: number; stamp: string; snapshot: Snapshot } | null>(null);
   const [run, setRun] = useState(0),
     [error, setError] = useState('');
   const [previous, setPrevious] = useState<PreviousRun | null>(null),
@@ -22,6 +22,8 @@ export function useExperiment(config: Config, reset: number, weights: Layer[] | 
     replaying = useRef(false);
   const key = experimentKey(config),
     problem = trainingProblem(config);
+  // Identifies the requested run during the render before the effect starts its worker.
+  const stamp = `${reset}|${key}`;
   function sendFrame(epoch: number): void {
     if (!worker.current) return;
     if (frameBusy.current) {
@@ -63,7 +65,7 @@ export function useExperiment(config: Config, reset: number, weights: Layer[] | 
           sendFrame(epoch);
         }
       } else {
-        setLatest({ id, snapshot: e.data.snapshot });
+        setLatest({ id, stamp, snapshot: e.data.snapshot });
         last.current = { snapshot: e.data.snapshot, config: runConfig };
       }
     };
@@ -101,12 +103,17 @@ export function useExperiment(config: Config, reset: number, weights: Layer[] | 
   };
   return {
     snapshot: latest?.snapshot ?? null,
-    pending: !problem && latest?.id !== run,
+    pending: !problem && (latest?.id !== run || latest.stamp !== stamp),
     error,
     problem,
     command,
     previous,
     clearPrevious: () => setPrevious(null),
+    /** The next run starts without a comparison to the current one. */
+    forgetRun: () => {
+      last.current = null;
+      setPrevious(null);
+    },
     frame,
     showFrame,
   };

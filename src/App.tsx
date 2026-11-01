@@ -9,6 +9,7 @@ import { HELP, Help } from './components/Help';
 import { DecisionBoundary, type DrawTool } from './components/DecisionBoundary';
 import { Network, useMapImages } from './components/Network';
 import { Timeline } from './components/Timeline';
+import { Lessons } from './components/Lessons';
 import { Inspector } from './components/Inspector';
 import { Charts } from './components/Charts';
 import { download, exportConfig, exportModel, historyCSV, importExperiment } from './utils/files';
@@ -34,7 +35,7 @@ export default function App() {
   const [weights, setWeights] = useState<Layer[] | null>(null),
     [replayEpoch, setReplayEpoch] = useState<number | null>(null),
     [tool, setTool] = useState<DrawTool>('zero');
-  const { snapshot, pending, error, problem, command, previous, clearPrevious, frame, showFrame } =
+  const { snapshot, pending, error, problem, command, previous, clearPrevious, forgetRun, frame, showFrame } =
     useExperiment(config, reset, weights);
   const dataKey = JSON.stringify([
     config.dataset,
@@ -231,6 +232,19 @@ export default function App() {
             </button>
           ))}
         </nav>
+        <Lessons
+          config={config}
+          snapshot={snapshot}
+          pending={pending}
+          error={error}
+          onTrain={train}
+          onApply={(next, fresh) => {
+            if (fresh) forgetRun();
+            change(next, '');
+            restart();
+            setNotice('');
+          }}
+        />
         <div className="training-toolbar">
           <div className="training-actions">
             <button
